@@ -1,0 +1,31 @@
+.wrapper {
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    
+    display: grid;
+    grid-template-columns: 256px 1fr; /*serve para que a primeira saidbar tenha 
+    um tamanho de 256px e a outra se adapte ao tamanho da tela  */
+
+    gap: 2rem; /* espaçamento entre as colunas*/
+    align-items: flex-start; /* para que a sidebar e os posts sempre fiquem alinhados pelo topo da pagina*/
+
+}
+
+@media (max-width: 768px) { /* quando o tela for menor que 768px aplicara o estilo no elemnto */
+
+    html {
+        font-size: 87.5% /* nesse caso tudo no dispositivo mobile irá diminuir de acordo com o tamanho da font 
+        está em porcentagem pois se fosse em px que é um valor bruto iria quebrar a estrurtura do rem   
+        */
+    }
+
+    .wrapper {
+        grid-template-columns: 1fr;/* todos os elementos vão ficar em apenas uma coluna*/
+    }
+}
+
+/* o rem é uma unidade relativa ao tamanho da fonte da página
+    então caso diminua o tamnho da fonte todos os elemnto vão 
+    diminuir de acordo com a fonte do dispositivo
+*/

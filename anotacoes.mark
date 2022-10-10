@@ -1,0 +1,180 @@
+#Programação de forma imperativa 
+1. É aquela em que é preciso passar o passo a passo detalhadamente para que seja exibido o resultado
+
+# Programação declarativa (é mais usado no react)
+
+1. É aquela em que é passada as condições para se obter o resultado 
+Por exemplo quando o forno estiver quente coloque o bolo la dentro
+
+<textarea
+        value={newCommentText} o valor da textarea sempre será o valor da variavel
+         name="comment" 
+         placeholder="Deixe se comentário"
+         onChange={handleNewCommentChenge} 
+        />
+
+
+Quando estamos fazendo o uso de uma lista usando o map cada elemento precisa de uma propriedade key,
+que precisa ser passada para ela qual a informação unica de cada um dos item da minha lista,ou seja, 
+qual é a informação do post nesse caso que me da uma facil identificação para saber qual post é qual
+a key precisa estar no primeiro elemento que é retornado no map
+
+------------------
+
+#Key no reaction
+## Por que única ?
+
+3 principais momentos em que um componente é renderizado novamente no react
+
+
+1. quando o estado altera;
+2. Quando a propriedade altera;
+3. Quando um componente pai renderiza novamente no react;
+
+-------------------
+
+quando a key é adicionada o react não renderiza novamente os componentes que já possuem as keys
+apenas os compara com os novos posts que podem vir. 
+Ou seja se na tela possuiam 4 posts e é adicionado um novo, os quatro que ja estavam não são renderizados novamente,
+apenas aqueles novos posts, então as keys ajudam o react a saber o que estava e o que não estava em tela, então não podem ter 
+keys repitidas.exports
+
+## Por que não pode-se usar o indice do array (que são os numeros dos elementos)?
+
+```js
+    const post = [1,2,3,4,5]
+    // o indice seria 0,1,2,3,4
+
+    porque caso mude um item de lugar por exemplo o 5 pelo 2 os indices continuarão os mesmo,
+    os indices não mudam, apenas a posição nos array
+    então o react enetende que se os indices não batem com as posiçoes do array que foi alterada,
+    é preciso renderizar tudo novamente
+```
+
+----------------
+
+No react conseguimos passar functions como props de um elemento
+<Comment key={comment} content={comment} deleteComment={deleteComment} />
+
+--------------------
+
+const commentsWithoutDeleteOne = comments.filter(comment =>{
+      return(
+        comment != commentToDelete
+      )
+    })
+
+  setComments(commentsWithoutDeleteOne);
+
+  criou uma lista de comentarios a partir da lista já existente porem removendo algum item 
+  usando o filter para percorrer cada comentarios.
+  filtrou para manter na lista apenas os comentarios que forem diferentes do comentario que eu quero deletar
+  apos isso ira atualizar a setComments com a lista de comentarios porem sem aquele que eu deletei
+
+  No react nunca se altera uma informação, sempre cria-se uma informação e salavando aquilo dentro do estado
+
+
+---------------------
+required para que seja obrigatorio o preenchimento da textArea
+
+function handleNewCommentChange() {
+    event.target.setCustomValidity('') para parar de dar erro que o cmpo é pbrigatorio mesmo com o texto escrito
+    setNewCommentText(event.target.value); //o valor de dentro da textArea esta armazenado dentro o useState
+  }
+
+  function handleNewCommentInvalid(){
+    event.target.setCustomValidity('Esse campo é obrigatório') para exibir a mensagem quando não houver nada escrito,
+    neste campo 
+  }
+
+  --------------------
+
+  
+<button onClick={handleLikeComment}> todo evento precisa reber uma função e não a execução dessa função
+                <ThumbsUp />
+                Aplaudir <span>{likeCount}</span>
+            </button>
+
+const [likeCount, setLikeCount] = useState(0); criou um estado de valor inicial 0
+
+
+ function handleLikeComment(){
+    setLikeCount(likeCount + 1); criou-se uma função para alterar o numero de likes 
+    toda vez que o botão fosse clicado,
+    chamou a função setlikecount e dentro dela passou a variavel que armazena o numero de likes inicial 
+    e acresceu mais um. 
+
+  }
+
+  --------------------
+  # Closures no Reactions 
+
+  ```js 
+  function Comment() {
+    const [like, setLikes ] = useState(0)
+    function addLike() {
+      setLikes(like + 1 )
+    }
+  }
+
+
+   ```
+
+   sempre que for atualizar uma informação e essa informação depende do valor que ela tinha anteriormente
+   é sempre recomendado usar o padrão de funções, como por exemplo no comment quando alteramos o numeros de likes de  ]
+   um em um
+   ----------------------
+
+   conts é uma coisa constante 
+   let let it change = deixe isso mudar
+
+
+ReactDOM.createRoot(document.getElementById('root')!).render( o ! serve para que o ts saiba que aquele root no caso 
+vai existir sim
+
+
+interface Author {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+interface PostProps {
+  author: Author;
+  publishedAt: Date;
+  content: string;
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
+
+  no ts não podemos passar o tipo da propriedade uma a uma, precisamos passar todas de uma unica vez 
+  como neste caso usando PostProps onde estavam armazenadas as informações de todas as props que 
+  estão sendo chamadas na função
+
+
+   function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) para o onChange usamos ChangeEvent 
+   no ts, e para especificar qual elemento estamos usando, precisamos do <HTMLTextAreaElement>
+
+
+   
+
+interface CommentProps{
+  content:string;
+  onDeleteComment: (comment:string) => void; para fazer as propriedades de dentro de uma função 
+  neste caso passou o parametro como content que era uma string e como ela não possuia um return 
+  era vazia então void
+}
+
+
+interface AvatarProps{
+    hasBorder ?:boolean; quando um elemnto não é opicional no elemento precisa-se usar o ?
+    src:string;
+    alt?:string;
+}
+
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement>{ usamos ImgHTMLAttributes para que todas a propriedade
+da imagem seja pega, ou seja não é preciso passar um por um e passando o seu valor como string ou number,
+com essa propriedade podemos pegar todos os elemento que qualquer elemento html possui nesse caso a imagem 
+
+    hasBorder ?:boolean;
+}
